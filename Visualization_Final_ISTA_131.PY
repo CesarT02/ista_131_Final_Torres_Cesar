@@ -100,7 +100,7 @@ def plot3():
     ax.set_title('Correlation between Pole Positions and Race Wins')
     ax.set_xlabel('Pole Position')
     ax.set_ylabel('Race Wins')
-    ax.legend()
+    ax.legend(title='Champion')
     
     # Show the plot
     plt.show()
