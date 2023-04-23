@@ -66,7 +66,7 @@ def plot1(drivers_df):
 
 def plot2(drivers_df):
     teams = pd.read_csv('constructor_standings_2010-2021.csv')
-    teams.rename(columns={'index':'position'},inplace=True)
+    teams.rename(columns={'Unnamed: 0':'position'},inplace=True)
     for i in range(len(teams)):
         teams['position'][i] = teams['position'][i] + 1  
     unique_years = teams['year'].nunique()    
@@ -80,11 +80,11 @@ def plot2(drivers_df):
     ax.set_xticklabels(Average_point_season['team'], rotation=90)
     ax.bar(Average_point_season['team'], Average_point_season['points'], color=['blue', 'green', 'red', 'purple', 'orange'])
     for i in range(len(Average_point_season)):
-        ax.annotate(str(round(Average_point_season['points'][i],2)), xy=(i,Average_point_season['points'][i]), ha='center', va='bottom')
+        ax.annotate(str(round(Average_point_season['points'][i],2)), xy=(Average_point_season['team'][i],Average_point_season['points'][i]), ha='center', va='bottom')
 
     
     plt.show()
 
-def plot3():
+def plot3(drivers_df):
 
-    plt.show
+    plt.show()
