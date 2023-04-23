@@ -22,24 +22,7 @@ def dateframe():
     return drivers_df
 
 
-def main():
-    drivers_df = dateframe()
 
-    plot_number = 1
-    while plot_number <= 3:
-        next = input(f"Show plot {plot_number}? (Y/N)")
-        if next.lower() == 'y':
-            if plot_number == 1:
-                plot1(drivers_df)
-            elif plot_number == 2:
-                plot2(drivers_df)
-            elif plot_number == 3:
-                plot3()
-            plot_number += 1
-        else:
-            break
-            
-    main()
 def plot1(drivers_df):
     
     most_wins=[]
@@ -88,3 +71,20 @@ def plot2(drivers_df):
 def plot3(drivers_df):
 
     plt.show()
+
+def main():
+    drivers_df = dateframe()
+
+    plot_number = 1
+    while plot_number <= 3:
+        next = input(f"Show plot {plot_number}? (Y/N)")
+        if next.lower() == 'y':
+            if plot_number == 1:
+                plot1(drivers_df)
+            elif plot_number == 2:
+                plot2(drivers_df)
+            elif plot_number == 3:
+                plot3(drivers_df)
+            plot_number += 1
+        else:
+            break
