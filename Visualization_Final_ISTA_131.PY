@@ -70,7 +70,7 @@ def plot2(drivers_df):
     
     plt.show()
 
-def plot3(drivers_df):
+def plot3():
     # Define color map
     dark_gray_color = 'gray'
     highlight_color = 'red'
@@ -78,32 +78,32 @@ def plot3(drivers_df):
 
     # Load data and filter
     df = pd.read_csv('F1DriversDataset.csv')
-    tmp_df = df.query('Pole_Positions > 0')[['Pole_Positions', 'Race_Wins', 'Champion']].reset_index()
-
+    tmp_df = df.query('Pole_Positions > 0')[['Driver', 'Pole_Positions', 'Race_Wins', 'Champion']].reset_index()
+    
     # Create scatter plot
     fig, ax = plt.subplots()
     for champion, color in color_discrete_map.items():
         tmp = tmp_df[tmp_df['Champion'] == champion]
         ax.scatter(tmp['Pole_Positions'], tmp['Race_Wins'], c=color, label=str(champion))
 
-# Add trendline
+    # Add trendline
     z = np.polyfit(tmp_df['Pole_Positions'], tmp_df['Race_Wins'], 1)
     p = np.poly1d(z)
     ax.plot(tmp_df['Pole_Positions'], p(tmp_df['Pole_Positions']), "k--")
-
-# Add annotations
+    
+    # Add annotations
     for index, row in tmp_df.query('Pole_Positions >= 50').iterrows():
         driver_name = row['Driver'].split(' ')[-1]
         ax.annotate(driver_name, (row['Pole_Positions'], row['Race_Wins']), textcoords="offset points", xytext=(0,15), ha='center')
 
-# Set plot properties
+    # Set plot properties
     ax.set_title('Correlation between Pole Positions and Race Wins')
-    ax.set_xlabel('Pole Position #')
-    ax.set_ylabel('Race Wins #')
+    ax.set_xlabel('Pole Position')
+    ax.set_ylabel('Race Wins')
     ax.legend()
-
+    
+    # Show the plot
     plt.show()
-
 def main():
     drivers_df = dateframe()
     
@@ -116,7 +116,7 @@ def main():
             elif plot_number == 2:
                 plot2(drivers_df)
             elif plot_number == 3:
-                plot3(drivers_df)
+                plot3()
             plot_number += 1
         elif next_plot.lower() == 'n':
             break
