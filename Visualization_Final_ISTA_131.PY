@@ -13,7 +13,7 @@ def dateframe():
     drivers_df = drivers
     drivers_df.rename(columns={'index':'position'},inplace=True)
     for i in range(len(drivers_df)):
-        drivers_df['position'][i] = drivers_df['position'][i] + 1  
+        drivers_df.loc[i, 'position'] = drivers_df.loc[i, 'position'] + 1
 
     drivers_df['name'] = drivers_df[['name','surname']].agg(" ".join,axis=1)
     drivers_df.drop('surname',axis=1,inplace=True)
@@ -49,9 +49,11 @@ def plot1(drivers_df):
 
 def plot2(drivers_df):
     teams = pd.read_csv('constructor_standings_2010-2021.csv')
-    teams.rename(columns={'Unnamed: 0':'position'},inplace=True)
+    teams.rename(columns={'index':'position'},inplace=True)
     for i in range(len(teams)):
-        teams['position'][i] = teams['position'][i] + 1  
+        # make a copy of the slice
+        pos = teams.loc[i, 'position']
+        teams.loc[i, 'position'] = pos + 1
     unique_years = teams['year'].nunique()    
     sum_of_all_points_each_team = teams.groupby(['team'])['points'].sum()
     Average_point_season = (sum_of_all_points_each_team / unique_years)
@@ -74,11 +76,11 @@ def plot3(drivers_df):
 
 def main():
     drivers_df = dateframe()
-
+    
     plot_number = 1
     while plot_number <= 3:
-        next = input(f"Show plot {plot_number}? (Y/N)")
-        if next.lower() == 'y':
+        next_plot = input(f"Show plot {plot_number}? (Y/N)")
+        if next_plot.lower() == 'y':
             if plot_number == 1:
                 plot1(drivers_df)
             elif plot_number == 2:
@@ -86,5 +88,10 @@ def main():
             elif plot_number == 3:
                 plot3(drivers_df)
             plot_number += 1
-        else:
+        elif next_plot.lower() == 'n':
             break
+        else:
+            print("Invalid input. Please enter Y or N.")
+            
+
+main()
