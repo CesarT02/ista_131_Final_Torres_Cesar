@@ -72,9 +72,9 @@ def plot2(drivers_df):
 
 def plot3():
     # Define color map
-    dark_gray_color = 'gray'
+    stn_color = 'gray'
     highlight_color = 'red'
-    color_discrete_map = {False: dark_gray_color, True: highlight_color}
+    color_discrete_map = {False: stn_color, True: highlight_color}
 
     # Load data and filter
     df = pd.read_csv('F1DriversDataset.csv')
